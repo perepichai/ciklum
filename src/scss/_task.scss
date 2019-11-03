@@ -21,11 +21,18 @@
     margin-bottom: 10px;
 }
 .list-task-priority {
-    margin-top: 10px;
-    margin-bottom: 20px;
     padding: 3px;
     border: 2px dashed $border;
 }
+.task-actions li {
+    margin-left: 110px;
+}
 .task-actions li button {
 width: 80px;
+}
+
+.list-task-actions, .list-task-priority {
+    display: block;
+    float: left;
+    margin: 10px 40px 10px 0;
 }

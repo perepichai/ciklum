@@ -79,6 +79,7 @@ const createElem = (details) => {
   priority.innerHTML = details.priority;
   priority.classList.add('list-task-priority');
   btn.innerHTML = '...';
+  btn.classList.add('list-task-actions');
   btn.addEventListener('click', (e) => { actionsToggle(e); });
   actions.classList.add('task-actions');
   actions.style.display = 'none';
