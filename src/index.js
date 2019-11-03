@@ -7,7 +7,7 @@ const taskActions = ['done', 'edit', 'delete'];
 
 document.addEventListener('submit', (e) => e.preventDefault());
 
-const tasks = [];
+let taskID = 0;
 
 const updateFormState = (title, description, priority) => {
   document.querySelector('input[name=task-title]').value = title;
@@ -56,6 +56,9 @@ const createElem = (details) => {
   const actions = document.createElement('ul');
 
   el.classList.add('task', 'open');
+  el.setAttribute('data-id', taskID);
+  // eslint-disable-next-line no-plusplus
+  taskID++;
   name.innerHTML = details.title;
   name.classList.add('list-task-title');
   description.innerHTML = details.description;
@@ -100,7 +103,7 @@ const addTask = () => {
   const details = Object.assign(getNewTaskDetails());
   const elem = createElem(details);
   const parrent = document.querySelector('#task-list');
-  tasks.push(details);
+  // tasks.push(details);
   appendToDOM(parrent, elem);
   updateFormState('', '', 'high');
   showEditFormToggle();
