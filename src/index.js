@@ -3,16 +3,27 @@ import './scss/style.scss';
 // const priorityArray = ['low', 'normal', 'high'];
 const taskActions = ['done', 'edit', 'delete'];
 
-// const state = true;
+const formState = {
+  state: 'newTask',
+  taskID: 1,
+};
 
-document.addEventListener('submit', (e) => e.preventDefault());
+const saveChanges = (id) => {
+  const task = document.querySelector(`[data-id="${id}"]`);
+  const title = document.querySelector('input[name=task-title]').value;
+  const description = document.querySelector('textarea[name=task-description]').value;
+  const priority = document.querySelector('#task-priority').value;
 
-let taskID = 0;
+  task.getElementsByClassName('list-task-title')[0].innerHTML = title;
+  task.getElementsByClassName('list-task-description')[0].innerHTML = description;
+  task.getElementsByClassName('list-task-priority')[0].innerHTML = priority;
+};
 
-const updateFormState = (title, description, priority) => {
+const updateFormState = (title, description, priority, id) => {
   document.querySelector('input[name=task-title]').value = title;
   document.querySelector('textarea[name=task-description]').value = description;
   document.querySelector('#task-priority').value = priority;
+  if (id) saveChanges(id);
 };
 
 const showEditFormToggle = () => {
@@ -25,6 +36,8 @@ const editTask = (e) => {
   const title = card.getElementsByClassName('list-task-title')[0].innerHTML;
   const description = card.getElementsByClassName('list-task-description')[0].innerHTML;
   const priority = card.getElementsByClassName('list-task-priority')[0].innerHTML;
+  const id = card.getAttribute('data-id');
+  formState.editTaskId = id;
   updateFormState(title, description, priority);
   showEditFormToggle();
 };
@@ -56,9 +69,9 @@ const createElem = (details) => {
   const actions = document.createElement('ul');
 
   el.classList.add('task', 'open');
-  el.setAttribute('data-id', taskID);
+  el.setAttribute('data-id', formState.taskID);
   // eslint-disable-next-line no-plusplus
-  taskID++;
+  formState.taskID++;
   name.innerHTML = details.title;
   name.classList.add('list-task-title');
   description.innerHTML = details.description;
@@ -100,13 +113,18 @@ const getNewTaskDetails = () => {
 const appendToDOM = (DOM, newElem) => DOM.appendChild(newElem);
 
 const addTask = () => {
-  const details = Object.assign(getNewTaskDetails());
-  const elem = createElem(details);
-  const parrent = document.querySelector('#task-list');
-  // tasks.push(details);
-  appendToDOM(parrent, elem);
-  updateFormState('', '', 'high');
-  showEditFormToggle();
+  if (formState.editTaskId) {
+    saveChanges(formState.editTaskId);
+    showEditFormToggle();
+    formState.editTaskId = false;
+  } else {
+    const details = Object.assign(getNewTaskDetails());
+    const elem = createElem(details);
+    const parrent = document.querySelector('#task-list');
+    appendToDOM(parrent, elem);
+    updateFormState('', '', 'high');
+    showEditFormToggle();
+  }
 };
 
 const cancelTask = () => {
@@ -152,7 +170,7 @@ const filterTasks = () => {
 
 
 // init start state
-
+document.addEventListener('submit', (e) => e.preventDefault());
 document.querySelector('#add-task').addEventListener('click', addTask);
 document.querySelector('#cancel-task').addEventListener('click', cancelTask);
 document.querySelector('#create').addEventListener('click', showEditFormToggle);

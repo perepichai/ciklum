@@ -4,3 +4,4 @@ Production файлы в папке dist
 Исходные файлы находятся в папке src
 Запуск в режиме разработки npm run dev
 Сгенерировать production файлы npx webpack
+Адрес http://localhost:8080
