@@ -1,0 +1,17 @@
+form[name=task-details] {
+    padding: 12px;
+}
+textarea[name=task-description], input[name=task-title] {
+    width: 220px;
+    margin-bottom: 12px;
+}
+
+#task-priority {
+    margin-bottom: 12px;
+}
+
+#cancel-task, #add-task {
+    display: block;
+    float: left;
+    margin: 5px;
+}

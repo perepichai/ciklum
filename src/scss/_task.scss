@@ -1,0 +1,31 @@
+.task {
+    border: 2px solid #8f8989;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 20px;
+    float: left;
+    width: 250px;
+    min-height: 200px;
+    .task-actions {
+        list-style: none;
+    }
+}
+.task-done {
+    color: rgb(63, 60, 60);
+    background-color: rgb(187, 178, 178);
+    border: 2px solid grey;
+    border-radius: 3px;
+}
+.list-task-description, .list-task-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.list-task-priority {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 3px;
+    border: 2px dashed $border;
+}
+.task-actions li button {
+width: 80px;
+}
